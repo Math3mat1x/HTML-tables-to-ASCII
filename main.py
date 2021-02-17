@@ -1,7 +1,38 @@
 from bs4 import BeautifulSoup as bs
 
 def draw(table, headers):
-    print(table)
+    column_widths = list()
+    for column in headers:
+        length = len(max([column] + table[column]))
+        column_widths.append(length + 1 * ((length - len(column)) % 2 == 1))
+
+    separation = "+" + "".join(["-" * (i + 2) + "+" for i in column_widths])
+    print(separation)
+
+    table_height = max([len(table[i]) for i in table])
+    for i in range(table_height):
+        if i == 0: # write headers
+            out = list()
+
+            for y, header in enumerate(headers):
+                length = int((column_widths[y] - len(header)) / 2)
+
+                text_to_add = " " * length + header + " " * (length + 1) + "|"
+                out.append(text_to_add)
+
+            out=  "| " + " ".join(out)
+
+        elif i == 1 or i == (max([len(table[i]) for i in table]) - 1):
+            out = separation
+        else:
+            out = list()
+            for y, header in enumerate(headers):
+                text_to_add = table[header][i] + " " * (column_widths[y] -\
+                            len(table[header][i]) + 1) + "|"
+                out.append(text_to_add)
+            out=  "| " + " ".join(out)
+
+        print(out)
 
 def convert(html):
     html = bs(html, "lxml")
