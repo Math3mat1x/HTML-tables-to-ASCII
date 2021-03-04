@@ -6,7 +6,7 @@ def draw(table, headers):
         length = len(max([column] + table[column]))
         column_widths.append(length + 1 * ((length - len(column)) % 2 == 1))
 
-    separation = "+" + "".join(["-" * (i + 2) + "+" for i in column_widths])
+    separation = "+" + "".join(["-" * (i + 2) + "+" for i in column_widths]) # TODO
     print(separation)
 
     table_height = max([len(table[i]) for i in table])
@@ -75,3 +75,4 @@ if __name__ == "__main__":
 # | Separate                         | cols    | with a tab or 4 spaces |       -2,027.1 |
 # | This is a row with only one cell |         |                        |                |
 # +----------------------------------+---------+------------------------+----------------+
+# test
